@@ -29,10 +29,12 @@ const ingredientsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchIngredients.pending, (state) => {
+        // console.log('Запрос ушёл...');
         state.isLoading = true;
         state.error = null;
       })
       .addCase(fetchIngredients.fulfilled, (state, action) => {
+        // console.log('Пришли ингредиенты:', action.payload);
         state.isLoading = false;
         state.ingredients = action.payload;
       })

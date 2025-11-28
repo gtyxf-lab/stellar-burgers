@@ -1,20 +1,32 @@
-import { useSelector } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 
 import styles from './constructor-page.module.css';
 
-import { BurgerIngredients } from '../../components';
-import { BurgerConstructor } from '../../components';
+import { FC, useEffect } from 'react';
+import { BurgerConstructor, BurgerIngredients } from '../../components';
 import { Preloader } from '../../components/ui';
-import { FC } from 'react';
+import { fetchIngredients } from '../../services/slices/ingredients.slice';
 
 export const ConstructorPage: FC = () => {
-  /** TODO: взять переменную из стора */
-  const isIngredientsLoading = false;
+  const dispatch = useDispatch();
+  const { ingredients, isLoading, error } = useSelector(
+    (state) => state.ingredients
+  );
+
+  useEffect(() => {
+    if (ingredients.length === 0 && !isLoading && !error) {
+      dispatch(fetchIngredients());
+    }
+  }, [dispatch, ingredients.length, isLoading, error]);
 
   return (
     <>
-      {isIngredientsLoading ? (
+      {isLoading ? (
         <Preloader />
+      ) : error ? (
+        <p className='text text_type_main-large text_color_error mt-30'>
+          Ошибка загрузки: {error}
+        </p>
       ) : (
         <main className={styles.containerMain}>
           <h1
