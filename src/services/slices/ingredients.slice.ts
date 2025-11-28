@@ -1,6 +1,6 @@
-import { getIngredientsApi } from "@api";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TIngredient } from "@utils-types";
+import { getIngredientsApi } from '@api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { TIngredient } from '@utils-types';
 
 interface IngredientState {
   ingredients: TIngredient[];
@@ -14,12 +14,15 @@ const initialState: IngredientState = {
   error: null
 };
 
-const fetchIngredients = createAsyncThunk('ingredients/fetch', async () => {
-  const response = await getIngredientsApi();
-  return response;
-});
+export const fetchIngredients = createAsyncThunk(
+  'ingredients/fetch',
+  async () => {
+    const response = await getIngredientsApi();
+    return response;
+  }
+);
 
-const ingredienSlice = createSlice({
+const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {},
@@ -34,11 +37,11 @@ const ingredienSlice = createSlice({
         state.ingredients = action.payload;
       })
       .addCase(fetchIngredients.rejected, (state, action) => {
-        (state.isLoading = false),
-          (state.error =
-            action.error.message || 'Не удалось загрузить ингредиенты');
+        state.isLoading = false;
+        state.error =
+          action.error.message || 'Не удалось загрузить ингредиенты';
       });
   }
 });
 
-export default ingredienSlice.reducer;
+export default ingredientsSlice.reducer;
