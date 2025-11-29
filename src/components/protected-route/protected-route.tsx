@@ -1,24 +1,32 @@
-import { FC } from 'react';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { FC, ReactElement } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { useSelector } from '../../services/store';
 
-interface ProtectedRouteProps {
+type TProtectedRouteProps = {
   onlyUnAuth?: boolean;
-}
+  children: ReactElement;
+};
 
-export const ProtectedRoute: FC<ProtectedRouteProps> = ({
-  onlyUnAuth = false
+export const ProtectedRoute: FC<TProtectedRouteProps> = ({
+  onlyUnAuth = false,
+  children
 }) => {
+  const user = useSelector((state) => state.user.user);
+  const isAuthChecked = useSelector((state) => state.user.isAuthChecked);
   const location = useLocation();
-  const isAuthenticated = !!localStorage.getItem('accessToken');
 
-  if (!onlyUnAuth && !isAuthenticated) {
-    return <Navigate to='/login' state={{ from: location.pathname }} replace />;
+  if (!isAuthChecked) {
+    return <div className='text text_type_main_large mt-30'>Загрузка...</div>;
   }
 
-  if (onlyUnAuth && isAuthenticated) {
-    const from = location.state?.from || '/';
+  if (onlyUnAuth && user) {
+    const from = location.state?.from?.pathname || '/';
     return <Navigate to={from} replace />;
   }
 
-  return <Outlet />;
+  if (!onlyUnAuth && !user) {
+    return <Navigate to='/login' state={{ from: location }} replace />;
+  }
+
+  return children;
 };
