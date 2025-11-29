@@ -24,8 +24,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 const App = () => {
   const location = useLocation();
   const background =
-    location.state &&
-    (location.state as { backgroundLocation?: Location }).backgroundLocation;
+    location.state && (location.state as { background?: Location }).background;
   const navigate = useNavigate();
 
   const closeModal = () => {
