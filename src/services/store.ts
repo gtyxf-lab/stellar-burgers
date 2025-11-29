@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import constructorReducer from './slices/constructor.slice';
 import ingredientsReducer from './slices/ingredients.slice';
 
 import {
@@ -8,7 +9,8 @@ import {
 } from 'react-redux';
 
 const rootReducer = {
-  ingredients: ingredientsReducer
+  ingredients: ingredientsReducer,
+  burgerConstructor: constructorReducer
 }; // Заменить на импорт настоящего редьюсера
 
 const store = configureStore({
