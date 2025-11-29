@@ -1,3 +1,4 @@
+import { Preloader } from '@ui';
 import { FC, ReactElement } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from '../../services/store';
@@ -16,7 +17,7 @@ export const ProtectedRoute: FC<TProtectedRouteProps> = ({
   const location = useLocation();
 
   if (!isAuthChecked) {
-    return <div className='text text_type_main_large mt-30'>Загрузка...</div>;
+    return <Preloader />;
   }
 
   if (onlyUnAuth && user) {

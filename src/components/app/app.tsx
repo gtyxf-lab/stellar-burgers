@@ -21,7 +21,7 @@ import {
 } from '@components';
 import { useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { authChecked, getUser } from '../../services/slices/user.slice';
+import { getUser } from '../../services/slices/user.slice';
 import { useDispatch } from '../../services/store';
 
 const App = () => {
@@ -37,9 +37,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUser()).finally(() => {
-      dispatch(authChecked());
-    });
+    dispatch(getUser());
   }, [dispatch]);
 
   return (

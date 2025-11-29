@@ -90,10 +90,11 @@ const userSlice = createSlice({
         state.user = action.payload.user;
         state.isAuthChecked = true;
       })
-      .addCase(getUser.rejected, () => ({
-        ...initialState,
-        isAuthChecked: true
-      }))
+      .addCase(getUser.rejected, (state) => {
+        state.isAuthChecked = true;
+        state.user = null;
+        state.error = 'Не авторизован';
+      })
 
       .addCase(updateUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
