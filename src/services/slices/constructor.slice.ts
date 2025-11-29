@@ -34,10 +34,28 @@ const constructorSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
-    clearConstructor: () => initialState
+    clearConstructor: () => initialState,
+    moveIngredient: (
+      state,
+      action: PayloadAction<{ index: number; direction: 'up' | 'down' }>
+    ) => {
+      const { index, direction } = action.payload;
+      const arr = state.ingredients;
+      if (direction === 'up' && index > 0) {
+        [arr[index], arr[index - 1]] = [arr[index - 1], arr[index]];
+      }
+      if (direction === 'down' && index < arr.length - 1) {
+        [arr[index], arr[index + 1]] = [arr[index + 1], arr[index]];
+      }
+    }
   }
 });
 
-export const { addIngredient, removeIngredient, clearConstructor } =
-  constructorSlice.actions;
+export const {
+  addIngredient,
+  removeIngredient,
+  clearConstructor,
+  moveIngredient
+} = constructorSlice.actions;
+
 export default constructorSlice.reducer;
