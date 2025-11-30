@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import constructorReducer from './slices/constructor.slice';
+import feedReducer from './slices/feed.slice';
 import ingredientsReducer from './slices/ingredients.slice';
 import orderDetailsReducer from './slices/orderDetails.slice';
 import userReducer from './slices/user.slice';
@@ -16,7 +17,8 @@ const rootReducer = {
   burgerConstructor: constructorReducer,
   orderDetails: orderDetailsReducer,
   userOrders: userOrdersReducer,
-  user: userReducer
+  user: userReducer,
+  feed: feedReducer
 }; // Заменить на импорт настоящего редьюсера
 
 const store = configureStore({
