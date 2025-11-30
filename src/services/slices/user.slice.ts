@@ -8,6 +8,7 @@ import {
   updateUserApi
 } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { deleteCookie } from '../../utils/cookie';
 
 interface UserState {
   user: {
@@ -84,6 +85,13 @@ const userSlice = createSlice({
 
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
+        localStorage.removeItem('refreshToken');
+        deleteCookie('accessToken');
+      })
+      .addCase(logoutUser.rejected, (state) => {
+        state.user = null;
+        localStorage.removeItem('refreshToken');
+        deleteCookie('accessToken');
       })
 
       .addCase(getUser.fulfilled, (state, action) => {
