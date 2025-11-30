@@ -1,4 +1,11 @@
 import {
+  AppHeader,
+  IngredientDetails,
+  Modal,
+  OrderInfo,
+  ProtectedRoute
+} from '@components';
+import {
   ConstructorPage,
   Feed,
   ForgotPassword,
@@ -9,32 +16,20 @@ import {
   Register,
   ResetPassword
 } from '@pages';
-import '../../index.css';
-import styles from './app.module.css';
-
-import {
-  AppHeader,
-  IngredientDetails,
-  Modal,
-  OrderInfo,
-  ProtectedRoute
-} from '@components';
 import { useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import '../../index.css';
 import { getUser } from '../../services/slices/user.slice';
 import { useDispatch } from '../../services/store';
+import styles from './app.module.css';
 
 const App = () => {
   const location = useLocation();
-  const background =
-    location.state && (location.state as { background?: Location }).background;
+  const background = location.state?.background;
   const navigate = useNavigate();
-
-  const closeModal = () => {
-    navigate(-1);
-  };
-
   const dispatch = useDispatch();
+
+  const closeModal = () => navigate(-1);
 
   useEffect(() => {
     dispatch(getUser());
@@ -80,7 +75,6 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-
         <Route
           path='/profile'
           element={
@@ -104,7 +98,7 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title='Детали ингридиента' onClose={closeModal}>
+              <Modal title='Детали ингредиента' onClose={closeModal}>
                 <IngredientDetails />
               </Modal>
             }

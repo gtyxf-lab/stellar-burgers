@@ -86,11 +86,6 @@ export const getFeedsApi = () =>
       if (data?.success) return data;
       return Promise.reject(data);
     });
-// export const getFeedsApi = async (): Promise<TFeedsResponse> => {
-//   const res = await fetch(`${URL}/orders/all`);
-//   const data = await checkResponse<TFeedsResponse>(res);
-//   return data;
-// };
 
 export const getOrdersApi = () =>
   fetchWithRefresh<TFeedsResponse>(`${URL}/orders`, {
