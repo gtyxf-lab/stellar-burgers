@@ -2,15 +2,18 @@ import { BurgerConstructorUI } from '@ui';
 import { TConstructorIngredient } from '@utils-types';
 import { FC, useMemo } from 'react';
 import { clearConstructor } from '../../services/slices/constructor.slice';
-import { clearOrder, createOrder } from '../../services/slices/order.slice';
+import {
+  clearOrder,
+  createOrder
+} from '../../services/slices/orderDetails.slice';
 import { useDispatch, useSelector } from '../../services/store';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
-  const orderRequest = useSelector((state) => state.order.orderRequest);
-  const orderModalData = useSelector((state) => state.order.order);
+  const orderRequest = useSelector((state) => state.orderDetails.orderRequest);
+  const orderModalData = useSelector((state) => state.orderDetails.order);
 
   const constructorItems = {
     bun,

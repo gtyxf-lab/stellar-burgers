@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import constructorReducer from './slices/constructor.slice';
 import ingredientsReducer from './slices/ingredients.slice';
-import orderReducer from './slices/order.slice';
+import orderDetailsReducer from './slices/orderDetails.slice';
 import userReducer from './slices/user.slice';
+import userOrdersReducer from './slices/userOrders.slice';
 
 import {
   TypedUseSelectorHook,
@@ -13,7 +14,8 @@ import {
 const rootReducer = {
   ingredients: ingredientsReducer,
   burgerConstructor: constructorReducer,
-  order: orderReducer,
+  orderDetails: orderDetailsReducer,
+  userOrders: userOrdersReducer,
   user: userReducer
 }; // Заменить на импорт настоящего редьюсера
 
