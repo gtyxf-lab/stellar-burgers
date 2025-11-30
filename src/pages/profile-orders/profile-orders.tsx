@@ -17,5 +17,7 @@ export const ProfileOrders: FC = () => {
     return <p className='text text_type_main-large mt-30'>Ошибка: {error}</p>;
   }
 
-  return <OrdersList orders={orders.reverse()} />;
+  const reversedOrders = orders ? [...orders].reverse() : [];
+
+  return <OrdersList orders={reversedOrders} />;
 };
