@@ -93,6 +93,10 @@ const userSlice = createSlice({
         localStorage.removeItem('refreshToken');
         deleteCookie('accessToken');
       })
+      .addCase(logoutUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
 
       .addCase(getUser.fulfilled, (state, action) => {
         state.user = action.payload.user;

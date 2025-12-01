@@ -1,3 +1,4 @@
+import { Preloader } from '@ui';
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { updateUser } from '../../services/slices/user.slice';
@@ -68,6 +69,8 @@ export const Profile: FC = () => {
       [e.target.name]: e.target.value
     }));
   };
+
+  if (isLoading) return <Preloader />;
 
   return (
     <ProfileUI

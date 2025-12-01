@@ -1,5 +1,5 @@
-import { OrdersList } from '@components';
 import { Preloader } from '@ui';
+import { ProfileOrdersUI } from '@ui-pages';
 import { FC, useEffect } from 'react';
 import { fetchOrders } from '../../services/slices/userOrders.slice';
 import { useDispatch, useSelector } from '../../services/store';
@@ -19,5 +19,5 @@ export const ProfileOrders: FC = () => {
 
   const reversedOrders = orders ? [...orders].reverse() : [];
 
-  return <OrdersList orders={reversedOrders} />;
+  return <ProfileOrdersUI orders={reversedOrders} />;
 };
