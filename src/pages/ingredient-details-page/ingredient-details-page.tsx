@@ -17,7 +17,7 @@ export const IngredientDetailsPage: FC = () => {
 
   return (
     <div className={styles.container}>
-      <h2 className='text text_type_main-large'>Детали ингредиента</h2>
+      <h1 className='text text_type_main-large'>Детали ингредиента</h1>
       <IngredientDetails />
     </div>
   );

@@ -1,10 +1,8 @@
-// src/utils/burger-api.ts
 import { TIngredient, TOrder, TUser } from '@utils-types';
 import { getCookie, setCookie } from './cookie';
 
 export const BASE_URL = process.env.BURGER_API_URL!;
 
-// Универсальные проверки
 const checkResponse = <T>(res: Response): Promise<T> =>
   res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 
@@ -14,13 +12,11 @@ const checkSuccess = <T>(res: T): T => {
   throw new Error(`Server error: ${(res as any).message || 'Unknown error'}`);
 };
 
-// Главная универсальная функция — без ошибок TS и ESLint
 const request = <T>(endpoint: string, options?: RequestInit): Promise<T> =>
   fetch(`${BASE_URL}/${endpoint}`, options)
     .then(checkResponse<T>)
     .then(checkSuccess<T>);
 
-// === Обновление токена ===
 type TRefreshResponse = {
   success: boolean;
   refreshToken: string;
@@ -38,7 +34,6 @@ export const refreshToken = (): Promise<TRefreshResponse> =>
     return data;
   });
 
-// === fetchWithRefresh ===
 export const fetchWithRefresh = async <T>(
   endpoint: string,
   options: RequestInit
@@ -58,7 +53,6 @@ export const fetchWithRefresh = async <T>(
   }
 };
 
-// === Все API-функции ===
 export const getIngredientsApi = async (): Promise<TIngredient[]> =>
   request<{ data: TIngredient[] }>('ingredients').then((res) => res.data);
 
@@ -92,7 +86,6 @@ export const getOrderByNumberApi = async (number: number): Promise<TOrder> =>
     return res.orders[0];
   });
 
-// === Авторизация ===
 export type TRegisterData = { email: string; name: string; password: string };
 export type TLoginData = { email: string; password: string };
 export type TAuthResponse = {

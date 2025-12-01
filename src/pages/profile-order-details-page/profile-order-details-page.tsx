@@ -76,9 +76,9 @@ export const ProfileOrderDetailsPage: FC = () => {
 
   return (
     <div className={styles.container}>
-      <h2 className='text text_type_digits-default mb-10'>
+      <h1 className='text text_type_digits-default mb-10'>
         #{orderInfo.number}
-      </h2>
+      </h1>
       <OrderInfoUI orderInfo={orderInfo} />
     </div>
   );
