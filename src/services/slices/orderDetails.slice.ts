@@ -16,10 +16,7 @@ const initialState: OrderState = {
 
 export const createOrder = createAsyncThunk(
   'order/createOrder',
-  async (ingredients: string[]) => {
-    const response = await orderBurgerApi(ingredients);
-    return response.order;
-  }
+  orderBurgerApi
 );
 
 const orderDetailsSlice = createSlice({
@@ -38,7 +35,7 @@ const orderDetailsSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.orderRequest = false;
-        state.order = action.payload;
+        state.order = action.payload.order;
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.orderRequest = false;

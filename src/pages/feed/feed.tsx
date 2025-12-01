@@ -6,9 +6,7 @@ import { useDispatch, useSelector } from '../../services/store';
 
 export const Feed: FC = () => {
   const dispatch = useDispatch();
-  const { orders, total, totalToday, isLoading, error } = useSelector(
-    (state) => state.feed
-  );
+  const { orders, isLoading, error } = useSelector((state) => state.feed);
 
   useEffect(() => {
     dispatch(fetchFeed());

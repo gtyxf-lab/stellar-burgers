@@ -8,10 +8,13 @@ import {
 import {
   ConstructorPage,
   Feed,
+  FeedOrderDetailsPage,
   ForgotPassword,
+  IngredientDetailsPage,
   Login,
   NotFound404,
   Profile,
+  ProfileOrderDetailsPage,
   ProfileOrders,
   Register,
   ResetPassword
@@ -29,7 +32,6 @@ const App = () => {
   const background = location.state?.background;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const closeModal = () => navigate(-1);
 
   useEffect(() => {
@@ -43,8 +45,17 @@ const App = () => {
       <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
+        <Route path='/feed/:number' element={<FeedOrderDetailsPage />} />
+        <Route path='/ingredients/:id' element={<IngredientDetailsPage />} />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <ProfileOrderDetailsPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path='*' element={<NotFound404 />} />
-
         <Route
           path='/login'
           element={
@@ -94,7 +105,6 @@ const App = () => {
           }
         />
       </Routes>
-
       {background && (
         <Routes>
           <Route
