@@ -14,7 +14,9 @@ export const Profile: FC = () => {
     password: ''
   });
 
-  const [updateUserError, setUpdateUserError] = useState<string | null>(null);
+  const [updateUserError, setUpdateUserError] = useState<string | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     if (user) {
@@ -33,7 +35,7 @@ export const Profile: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    setUpdateUserError(null);
+    setUpdateUserError(undefined);
 
     const updateData: { name?: string; email?: string; password?: string } = {};
 
@@ -60,7 +62,7 @@ export const Profile: FC = () => {
       email: user?.email || '',
       password: ''
     });
-    setUpdateUserError(null);
+    setUpdateUserError(undefined);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,6 +81,7 @@ export const Profile: FC = () => {
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
       handleInputChange={handleInputChange}
+      updateUserError={updateUserError}
     />
   );
 };
