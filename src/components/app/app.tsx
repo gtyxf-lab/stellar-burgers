@@ -19,6 +19,7 @@ import {
 import { useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import '../../index.css';
+import { fetchIngredients } from '../../services/slices/ingredients.slice';
 import { getUser } from '../../services/slices/user.slice';
 import { useDispatch } from '../../services/store';
 import styles from './app.module.css';
@@ -32,6 +33,7 @@ const App = () => {
   const closeModal = () => navigate(-1);
 
   useEffect(() => {
+    dispatch(fetchIngredients());
     dispatch(getUser());
   }, [dispatch]);
 
