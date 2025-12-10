@@ -1,10 +1,23 @@
+import { Preloader } from '@ui';
 import { ProfileOrdersUI } from '@ui-pages';
-import { TOrder } from '@utils-types';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { fetchOrders } from '../../services/slices/userOrders.slice';
+import { useDispatch, useSelector } from '../../services/store';
 
 export const ProfileOrders: FC = () => {
-  /** TODO: взять переменную из стора */
-  const orders: TOrder[] = [];
+  const dispatch = useDispatch();
+  const { orders, isLoading, error } = useSelector((state) => state.userOrders);
 
-  return <ProfileOrdersUI orders={orders} />;
+  useEffect(() => {
+    dispatch(fetchOrders());
+  }, [dispatch]);
+
+  if (isLoading) return <Preloader />;
+  if (error) {
+    return <p className='text text_type_main-large mt-30'>Ошибка: {error}</p>;
+  }
+
+  const reversedOrders = orders ? [...orders].reverse() : [];
+
+  return <ProfileOrdersUI orders={reversedOrders} />;
 };
