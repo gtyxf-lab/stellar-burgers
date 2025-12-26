@@ -34,9 +34,10 @@ describe('orderDetails slice', () => {
   });
 
   it('should handle rejected', () => {
-    const action = createOrder.rejected(null, '', ['bun1']);
+    const errorMessage = 'Failed';
+    const action = createOrder.rejected(new Error(errorMessage), '', ['bun1']);
     const state = orderDetailsReducer(initialState, action);
     expect(state.orderRequest).toBe(false);
-    expect(state.orderError).toBe('Ошибка заказа');
+    expect(state.orderError).toBe(errorMessage);
   });
 });

@@ -9,6 +9,7 @@ import {
 import { FC } from 'react';
 import styles from './burger-constructor.module.css';
 import { BurgerConstructorUIProps } from './type';
+
 export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   constructorItems,
   orderRequest,
@@ -86,16 +87,15 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         data-cy='order-button'
       />
     </div>
-    {orderRequest && (
-      <Modal onClose={closeOrderModal} title={'Оформляем заказ...'}>
+
+    {orderRequest && !orderModalData && (
+      <Modal onClose={closeOrderModal} title='Оформляем заказ...'>
         <Preloader />
       </Modal>
     )}
+
     {orderModalData && (
-      <Modal
-        onClose={closeOrderModal}
-        title={orderRequest ? 'Оформляем заказ...' : ''}
-      >
+      <Modal onClose={closeOrderModal} title='' data-cy='order-modal'>
         <OrderDetailsUI orderNumber={orderModalData.number} />
       </Modal>
     )}

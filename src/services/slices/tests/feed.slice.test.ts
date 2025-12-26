@@ -40,9 +40,10 @@ describe('feed slice', () => {
   });
 
   it('should handle rejected', () => {
-    const error = new Error('Network error');
+    const errorMessage = 'Network error';
+    const error = new Error(errorMessage);
     const state = feedReducer(initialState, fetchFeed.rejected(error, ''));
     expect(state.isLoading).toBe(false);
-    expect(state.error).toBe('Ошика загрузки ленты');
+    expect(state.error).toBe(errorMessage);
   });
 });

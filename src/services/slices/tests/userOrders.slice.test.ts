@@ -35,12 +35,13 @@ describe('userOrders slice', () => {
   });
 
   it('should handle rejected', () => {
-    const error = new Error('Auth error');
+    const errorMessage = 'Auth error';
+    const error = new Error(errorMessage);
     const state = userOrdersReducer(
       initialState,
       fetchOrders.rejected(error, '')
     );
     expect(state.isLoading).toBe(false);
-    expect(state.error).toBe('Ошибка загрузки истории заказов');
+    expect(state.error).toBe(errorMessage);
   });
 });

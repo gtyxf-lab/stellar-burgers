@@ -38,12 +38,13 @@ describe('ingredients slice', () => {
   });
 
   it('should handle rejected', () => {
-    const error = new Error('Test error');
+    const errorMessage = 'Test error';
+    const error = new Error(errorMessage);
     const state = ingredientsReducer(
       initialState,
       fetchIngredients.rejected(error, '')
     );
     expect(state.isLoading).toBe(false);
-    expect(state.error).toBe('Не удалось загрузить ингредиенты');
+    expect(state.error).toBe(errorMessage);
   });
 });
