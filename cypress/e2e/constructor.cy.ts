@@ -65,24 +65,19 @@ describe('Burger Constructor Page', () => {
   });
 
   it('should open and close ingredient modal', () => {
-    // Кликаем по КАРТОЧКЕ ингредиента (не по кнопке "Добавить")
     cy.get('[data-cy="bun"] [data-cy="ingredient-card"]')
       .first()
       .click({ force: true });
 
-    // Проверяем, что модалка открыта
     cy.get('[data-cy="modal"]').should('be.visible');
 
-    // Проверяем имя ингредиента
     cy.get('[data-cy="ingredient-name"]').should(
       'contain.text',
       'Краторная булка'
     );
 
-    // Закрываем по крестику
     cy.get('[data-cy="modal-close"]').click({ force: true });
 
-    // Проверяем, что модалка закрыта
     cy.get('[data-cy="modal"]').should('not.exist');
   });
 });
