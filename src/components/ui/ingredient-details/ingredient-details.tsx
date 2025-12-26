@@ -14,7 +14,7 @@ export const IngredientDetailsUI: FC<IngredientDetailsUIProps> = memo(
         />
         <h3
           className='text text_type_main-medium mt-2 mb-4'
-          data-cy='modal-title'
+          data-cy='ingredient-name'
         >
           {name}
         </h3>
