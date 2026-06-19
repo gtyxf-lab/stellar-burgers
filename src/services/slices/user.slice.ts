@@ -68,6 +68,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message || 'Ошибка регистрации';
       })
+
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -81,6 +82,10 @@ const userSlice = createSlice({
         state.error = action.error.message || 'Ошибка входа';
       })
 
+      .addCase(logoutUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
         state.isLoading = false;
@@ -92,23 +97,34 @@ const userSlice = createSlice({
         localStorage.removeItem('refreshToken');
         deleteCookie('accessToken');
       })
-      .addCase(logoutUser.pending, (state) => {
+
+      .addCase(getUser.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-
       .addCase(getUser.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.user = action.payload.user;
         state.isAuthChecked = true;
       })
-      .addCase(getUser.rejected, (state) => {
+      .addCase(getUser.rejected, (state, action) => {
+        state.isLoading = false;
         state.isAuthChecked = true;
         state.user = null;
-        state.error = 'Не авторизован';
+        state.error = action.error.message || 'Не авторизован';
       })
 
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.user = action.payload.user;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message || 'Ошибка обновления';
       });
   }
 });

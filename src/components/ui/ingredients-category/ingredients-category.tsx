@@ -2,7 +2,6 @@ import { BurgerIngredient } from '@components';
 import { forwardRef } from 'react';
 import styles from './ingredients-category.module.css';
 import { TIngredientsCategoryUIProps } from './type';
-
 export const IngredientsCategoryUI = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryUIProps
@@ -11,7 +10,17 @@ export const IngredientsCategoryUI = forwardRef<
     <h3 className='text text_type_main-medium mt-10 mb-6' ref={titleRef}>
       {title}
     </h3>
-    <ul className={styles.items} ref={ref}>
+    <ul
+      className={styles.items}
+      ref={ref}
+      data-cy={
+        title.toLowerCase() === 'булки'
+          ? 'bun'
+          : title.toLowerCase() === 'соусы'
+            ? 'sauce'
+            : 'main'
+      }
+    >
       {ingredients.map((ingredient) => (
         <BurgerIngredient
           ingredient={ingredient}
